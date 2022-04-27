@@ -10,7 +10,11 @@ namespace TurnBasedRPGBattle
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("test two");
+            GameCharacter gc = new GameCharacter();
+            gc.Attack(gc.Name);
+
+            Player player = new Player();
+            player.Attack(player.Name);
         }
     }
 }

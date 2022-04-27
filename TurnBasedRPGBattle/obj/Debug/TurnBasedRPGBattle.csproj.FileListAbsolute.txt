@@ -1,0 +1,7 @@
+C:\Users\sawye\Desktop\WebDev Projects\C#\TurnBasedRPGBattle\TurnBasedRPGBattle\bin\Debug\TurnBasedRPGBattle.exe.config
+C:\Users\sawye\Desktop\WebDev Projects\C#\TurnBasedRPGBattle\TurnBasedRPGBattle\bin\Debug\TurnBasedRPGBattle.exe
+C:\Users\sawye\Desktop\WebDev Projects\C#\TurnBasedRPGBattle\TurnBasedRPGBattle\bin\Debug\TurnBasedRPGBattle.pdb
+C:\Users\sawye\Desktop\WebDev Projects\C#\TurnBasedRPGBattle\TurnBasedRPGBattle\obj\Debug\TurnBasedRPGBattle.csproj.AssemblyReference.cache
+C:\Users\sawye\Desktop\WebDev Projects\C#\TurnBasedRPGBattle\TurnBasedRPGBattle\obj\Debug\TurnBasedRPGBattle.csproj.CoreCompileInputs.cache
+C:\Users\sawye\Desktop\WebDev Projects\C#\TurnBasedRPGBattle\TurnBasedRPGBattle\obj\Debug\TurnBasedRPGBattle.exe
+C:\Users\sawye\Desktop\WebDev Projects\C#\TurnBasedRPGBattle\TurnBasedRPGBattle\obj\Debug\TurnBasedRPGBattle.pdb

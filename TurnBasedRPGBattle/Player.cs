@@ -9,7 +9,6 @@ namespace TurnBasedRPGBattle
     class Player : GameCharacter
     {
         public int Level { get; set; }
-
         public Player(string _name, int _level) : base(_name)
         {
             

@@ -15,11 +15,19 @@ namespace TurnBasedRPGBattle
 
             while (player.Health > 0 && enemy.Health > 0)
             {
-                player.Attack(player, enemy);
-                enemy.Attack(enemy, player);
+                Console.WriteLine("Select Your Command: Attack, Spells, Items, Run");
+                var userInput = Console.ReadLine();
+
+                if (userInput.Trim().ToLower().Equals("attack"))
+                {
+                    Console.WriteLine(" ");
+                    player.Attack(player, enemy);
+                    Console.WriteLine(" ");
+                    enemy.Attack(enemy, player);
+                    Console.WriteLine(" ");
+                }
                 
             }
-            Console.ReadLine();
         }
     }
 }

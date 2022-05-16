@@ -44,6 +44,12 @@ namespace TurnBasedRPGBattle
             defendingCharacterObj.Health = defenderHealth - damage;
             Console.WriteLine($"{this.Name} has dealt {damage} points of damage");
             Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} points of health remaining");
+
+            if (defendingCharacterObj.Health == 0)
+            {
+                Console.WriteLine($"{defendingCharacterObj.Name} has been defeated!");
+                System.Threading.Thread.Sleep(3000);
+            }
         }
     }
 }

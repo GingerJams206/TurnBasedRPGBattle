@@ -10,11 +10,16 @@ namespace TurnBasedRPGBattle
     {
         static void Main(string[] args)
         {
-            GameCharacter gc = new GameCharacter();
-            gc.Attack(gc.Name);
-
+            GameCharacter enemy = new GameCharacter("Bat", 10, 10, 3, 3);
             Player player = new Player();
-            player.Attack(player.Name);
+
+            while (player.Health > 0 && enemy.Health > 0)
+            {
+                player.Attack(player, enemy);
+                enemy.Attack(enemy, player);
+                
+            }
+            Console.ReadLine();
         }
     }
 }

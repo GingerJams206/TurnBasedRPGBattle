@@ -12,6 +12,7 @@ namespace TurnBasedRPGBattle
 
         public string Description;
 
+
         public int Cost;
 
         public int DamageCost;

@@ -27,9 +27,9 @@ namespace TurnBasedRPGBattle
             Defense = 2;
         }
 
-        public void Attack(GameCharacter playerObj, GameCharacter enemyObj)
+        public void Attack(GameCharacter playerObj, GameCharacter enemyObj, Random rnd)
         {
-            base.Attack(playerObj, enemyObj);
+            base.Attack(playerObj, enemyObj, rnd);
         }
     }
 }

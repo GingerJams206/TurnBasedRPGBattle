@@ -12,7 +12,7 @@ namespace TurnBasedRPGBattle
         {
             GameCharacter enemy = new GameCharacter("Bat", 10, 10, 3, 3);
             Player player = new Player();
-
+            Random rnd = new Random();
             while (player.Health > 0 && enemy.Health > 0)
             {
                 Console.WriteLine("Select Your Command: Attack, Spells, Items, Run");
@@ -21,9 +21,9 @@ namespace TurnBasedRPGBattle
                 if (userInput.Trim().ToLower().Equals("attack"))
                 {
                     Console.WriteLine(" ");
-                    player.Attack(player, enemy);
+                    player.Attack(player, enemy, rnd);
                     Console.WriteLine(" ");
-                    enemy.Attack(enemy, player);
+                    enemy.Attack(enemy, player, rnd);
                     Console.WriteLine(" ");
                 }
                 

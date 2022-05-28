@@ -13,13 +13,15 @@ namespace TurnBasedRPGBattle
         public int Mana { get; set; }
         public List<Spell> Spells { get; set; }
 
-        public GameCharacter(string _name, int _health, int _level, int _strength, int _defense)
+        public GameCharacter(string _name, int _health, int _level, int _strength, int _defense, int _mana, List<Spell> _spells)
         {
             Name = _name;
             Health = _health;
             Level = _level;
             Strength = _strength;
             Defense = _defense;
+            Mana = _mana;
+            Spells = _spells;
         }
 
         public GameCharacter()
@@ -29,6 +31,8 @@ namespace TurnBasedRPGBattle
             Level = 1;
             Strength = 1;
             Defense = 1;
+            Mana = 1;
+            Spells = new List<Spell> {  };
         }
 
         public void Attack(GameCharacter attackingCharacterObj, GameCharacter defendingCharacterObj, Random rnd)
@@ -55,9 +59,34 @@ namespace TurnBasedRPGBattle
             }
         }
 
+        
+        public void CastSpell(GameCharacter attackingCharacterObj, GameCharacter defendingCharacterObj, Random rnd, Spell spell)
+        {
+            int hitPercentage = rnd.Next(0, 101);
+            if (hitPercentage <= 25)
+            {
+                Console.WriteLine($"{attackingCharacterObj.Name} misses");
+            }
+            else if (hitPercentage > 25 && hitPercentage <= 85)
+            {
+                NormalCast(attackingCharacterObj, defendingCharacterObj, spell);
+            }
+            else
+            {
+                CriticalCast(attackingCharacterObj, defendingCharacterObj, spell);
+            }
+
+
+            if (defendingCharacterObj.Health == 0)
+            {
+                Console.WriteLine($"{defendingCharacterObj.Name} has been defeated!");
+                System.Threading.Thread.Sleep(3000);
+            }
+        }
+
         public void NormalAttack(GameCharacter attackingCharacterObj, GameCharacter defendingCharacterObj)
         {
-            
+
             Console.WriteLine($"{this.Name} attacks!");
             var attackerStrength = attackingCharacterObj.Strength;
 
@@ -86,39 +115,59 @@ namespace TurnBasedRPGBattle
             Console.WriteLine($"{this.Name} has dealt {damage} point{(damage == 1 ? null : "s")} of damage");
             Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} point{(defendingCharacterObj.Health == 1 ? null : "s")} of health remaining");
         }
-   
-        public void CastSpell(GameCharacter attackingCharacterObj, GameCharacter defendingCharacterObj, Random rnd)
+
+
+        public void NormalCast(GameCharacter attackingCharacterObj, GameCharacter defendingCharacterObj, Spell spell)
         {
-            int hitPercentage = rnd.Next(0, 101);
-            if (hitPercentage <= 25)
+            attackingCharacterObj.Mana -= spell.Cost;
+            Console.WriteLine($"{this.Name} recites an incantation...");
+            Console.WriteLine($"{this.Name} casts {spell.Name}");
+            var attackerStrength = spell.Damage;
+
+            var defenderHealth = defendingCharacterObj.Health;
+            var defenderDefense = defendingCharacterObj.Defense;
+
+            var damage = Math.Max(0, attackerStrength - defenderDefense);
+
+            defendingCharacterObj.Health = defenderHealth - damage;
+            Console.WriteLine($"{this.Name} has dealt {damage} point{(damage == 1 ? null : "s")} of damage");
+            Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} point{(defendingCharacterObj.Health == 1 ? null : "s")} of health remaining");
+        }
+
+        public void CriticalCast(GameCharacter attackingCharacterObj, GameCharacter defendingCharacterObj, Spell spell)
+        {
+            attackingCharacterObj.Mana -= spell.Cost;
+            Console.WriteLine($"{this.Name} recites an incantation...The skies darken and the ground shakes.");
+            Console.WriteLine($"{this.Name} casts {spell.Name}");
+            var attackerStrength = spell.Damage * 2;
+
+            var defenderHealth = defendingCharacterObj.Health;
+            var defenderDefense = defendingCharacterObj.Defense;
+
+            var damage = Math.Max(0, attackerStrength - defenderDefense);
+
+            defendingCharacterObj.Health = defenderHealth - damage;
+            Console.WriteLine($"{this.Name} has dealt {damage} point{(damage == 1 ? null : "s")} of damage");
+            Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} point{(defendingCharacterObj.Health == 1 ? null : "s")} of health remaining");
+        }
+
+
+        public void EnemyAttack(GameCharacter player, GameCharacter enemy, Random rnd)
+        {
+            Random enemyAI = new Random();
+            int enemyChoice = enemyAI.Next(0, 101);
+
+            if (enemyChoice < 61)
             {
-                Console.WriteLine($"{attackingCharacterObj.Name} misses");
-            }
-            else if (hitPercentage > 25 && hitPercentage <= 85)
-            {
-                Console.WriteLine($"{this.Name} recites an encantation...");
-                var attackerStrength = attackingCharacterObj.Strength;
-
-                var defenderHealth = defendingCharacterObj.Health;
-                var defenderDefense = defendingCharacterObj.Defense;
-
-                var damage = Math.Max(0, attackerStrength - defenderDefense);
-
-                defendingCharacterObj.Health = defenderHealth - damage;
+                enemy.Attack(enemy, player, rnd);
             }
             else
             {
-             
-            }
-
-
-            if (defendingCharacterObj.Health == 0)
-            {
-                Console.WriteLine($"{defendingCharacterObj.Name} has been defeated!");
-                System.Threading.Thread.Sleep(3000);
+                Random enemySpell = new Random();
+                int index = enemySpell.Next(enemy.Spells.Count);
+                var spell = enemy.Spells[index];
+                enemy.CastSpell(enemy, player, rnd, spell);
             }
         }
-    
-    
     }
 }

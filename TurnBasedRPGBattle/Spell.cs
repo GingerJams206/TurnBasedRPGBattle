@@ -12,10 +12,9 @@ namespace TurnBasedRPGBattle
 
         public string Description;
 
+        public int Damage;
 
         public int Cost;
-
-        public int DamageCost;
 
         // object for Effect?
     }

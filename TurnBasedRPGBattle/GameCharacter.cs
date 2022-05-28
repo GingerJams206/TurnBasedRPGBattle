@@ -68,7 +68,7 @@ namespace TurnBasedRPGBattle
 
             defendingCharacterObj.Health = defenderHealth - damage;
             Console.WriteLine($"{this.Name} has dealt {damage} point{(damage == 1 ? null : "s")} of damage");
-            Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} points of health remaining");
+            Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} point{(defendingCharacterObj.Health == 1 ? null : "s")} of health remaining");
         }
 
         public void CriticalAttack(GameCharacter attackingCharacterObj, GameCharacter defendingCharacterObj)
@@ -84,7 +84,7 @@ namespace TurnBasedRPGBattle
 
             defendingCharacterObj.Health = defenderHealth - damage;
             Console.WriteLine($"{this.Name} has dealt {damage} point{(damage == 1 ? null : "s")} of damage");
-            Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} points of health remaining");
+            Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} point{(defendingCharacterObj.Health == 1 ? null : "s")} of health remaining");
         }
    
         public void CastSpell(GameCharacter attackingCharacterObj, GameCharacter defendingCharacterObj, Random rnd)

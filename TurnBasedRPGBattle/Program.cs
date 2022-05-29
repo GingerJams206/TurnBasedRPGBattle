@@ -19,7 +19,7 @@ namespace TurnBasedRPGBattle
             while (player.Health > 0 && enemy.Health > 0)
             {
                 playerTurn = true;
-                Console.WriteLine("Select Your Command: Attack, Spells, Items, Run");
+                Console.WriteLine("Select Your Command: Attack, Spells, Items, Check Stats, Run");
                 var userInput = Console.ReadLine();
 
                 if (userInput.Trim().ToLower().Equals("attack"))
@@ -51,6 +51,24 @@ namespace TurnBasedRPGBattle
                             Console.WriteLine("Not enough mana...");
                         }
                     }
+                }
+                else if (userInput.Trim().ToLower().Equals("check stats"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Press the 'Enter' key to return");
+                    Console.WriteLine(" ");
+                    Console.WriteLine($"Player Health: {player.Health}");
+                    Console.WriteLine($"Player Mana: {player.Mana}");
+                    Console.WriteLine($"Enemy Name: {enemy.Name}");
+                    Console.WriteLine($"Enemy Health: {enemy.Health}");
+                    
+                    var keyInput = Console.ReadKey(true).Key;
+                    if (keyInput == ConsoleKey.Enter)
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
+                    
                 }
 
                 if (playerTurn == false)

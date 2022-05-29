@@ -7,20 +7,24 @@ namespace TurnBasedRPGBattle
     {
         public string Name { get; set; }
         public int Health { get; set; }
+        public int MaxHealth { get; set; }
         public int Level { get; set; }
         public int Strength { get; set; }
         public int Defense { get; set; }
         public int Mana { get; set; }
+        public int MaxMana { get; set; }
         public List<Spell> Spells { get; set; }
 
         public GameCharacter(string _name, int _health, int _level, int _strength, int _defense, int _mana, List<Spell> _spells)
         {
             Name = _name;
             Health = _health;
+            MaxHealth = _health;
             Level = _level;
             Strength = _strength;
             Defense = _defense;
             Mana = _mana;
+            MaxMana = _mana;
             Spells = _spells;
         }
 
@@ -28,10 +32,12 @@ namespace TurnBasedRPGBattle
         {
             Name = "Bobby";
             Health = 1;
+            MaxHealth = 1;
             Level = 1;
             Strength = 1;
             Defense = 1;
             Mana = 1;
+            MaxMana = 1;
             Spells = new List<Spell> {  };
         }
 
@@ -149,6 +155,27 @@ namespace TurnBasedRPGBattle
             defendingCharacterObj.Health = defenderHealth - damage;
             Console.WriteLine($"{this.Name} has dealt {damage} point{(damage == 1 ? null : "s")} of damage");
             Console.WriteLine($"{defendingCharacterObj.Name} has {defendingCharacterObj.Health} point{(defendingCharacterObj.Health == 1 ? null : "s")} of health remaining");
+        }
+
+        public void CheckStats(GameCharacter player, GameCharacter enemy)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Press the 'Enter' key to return");
+            Console.WriteLine(" ");
+            Console.WriteLine($"Player Health: {player.Health}/{player.MaxHealth}");
+            Console.WriteLine($"Player Mana: {player.Mana}/{player.MaxMana}");
+            Console.WriteLine($"Enemy Name: {enemy.Name}");
+            Console.WriteLine($"Enemy Health: {enemy.Health}/{enemy.MaxHealth}");
+
+            var keyInput = Console.ReadKey(true).Key;
+            if (keyInput == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Gray;
+            } else
+            {
+                CheckStats(player, enemy);
+            }
         }
 
 

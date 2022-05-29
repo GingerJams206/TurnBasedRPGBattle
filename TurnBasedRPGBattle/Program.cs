@@ -9,16 +9,15 @@ namespace TurnBasedRPGBattle
     class Program
     {
 
-        
+
         static void Main(string[] args)
         {
             GameCharacter enemy = new GameCharacter("Bat", 10, 10, 3, 3, 5, new List<Spell> { new Spell { Name = "Screech", Description = "A loud piercing shriek", Damage = 4, Cost = 2 } });
             Player player = new Player();
             Random rnd = new Random();
-            bool playerTurn = false;
             while (player.Health > 0 && enemy.Health > 0)
             {
-                playerTurn = true;
+                player.PlayerTurn = true;
                 Console.WriteLine("Select Your Command: Attack, Spells, Items, Check Stats, Run");
                 var userInput = Console.ReadLine();
 
@@ -27,7 +26,6 @@ namespace TurnBasedRPGBattle
                     Console.WriteLine(" ");
                     player.Attack(player, enemy, rnd);
                     Console.WriteLine(" ");
-                    playerTurn = false;
                 }
                 else if (userInput.Trim().ToLower().Equals("spells"))
                 {
@@ -45,8 +43,8 @@ namespace TurnBasedRPGBattle
                         if (player.Mana - spell.Cost > 0)
                         {
                             player.CastSpell(player, enemy, rnd, spell);
-                            playerTurn = false;
-                        } else
+                        }
+                        else
                         {
                             Console.WriteLine("Not enough mana...");
                         }
@@ -54,29 +52,38 @@ namespace TurnBasedRPGBattle
                 }
                 else if (userInput.Trim().ToLower().Equals("check stats"))
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("Press the 'Enter' key to return");
-                    Console.WriteLine(" ");
-                    Console.WriteLine($"Player Health: {player.Health}");
-                    Console.WriteLine($"Player Mana: {player.Mana}");
-                    Console.WriteLine($"Enemy Name: {enemy.Name}");
-                    Console.WriteLine($"Enemy Health: {enemy.Health}");
-                    
-                    var keyInput = Console.ReadKey(true).Key;
-                    if (keyInput == ConsoleKey.Enter)
-                    {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                    }
-                    
-                }
+                    player.CheckStats(player, enemy);
 
-                if (playerTurn == false)
+                }
+                else if (userInput.Trim().ToLower().Equals("items"))
+                {
+                    var itemReadout = new List<string>();
+                    player.Items.ForEach(item => itemReadout.Add($"Name: {item.Name} - Qty: {item.Quantity}"));
+                    Console.WriteLine("Select an item: ");
+                    Console.WriteLine(string.Join(", ", itemReadout));
+                    Console.WriteLine(" ");
+                    var itemInput = Console.ReadLine();
+                    var selectedItem = player.Items.Where(item => item.Name.Trim().ToLower().Equals(itemInput.Trim().ToLower()));
+
+                    if (selectedItem.Any())
+                    {
+                        var item = selectedItem.First();
+                        if (item.Classification.Equals("Aid"))
+                        {
+                            player.UseItem(player, item);
+                        }
+                        else
+                        {
+                            Console.WriteLine("This isn't the time to use that!");
+                        }
+                    }
+                }
+                if (player.PlayerTurn == false)
                 {
                     Console.WriteLine(" ");
                     enemy.EnemyAttack(player, enemy, rnd);
                 }
-                
+
             }
         }
     }
